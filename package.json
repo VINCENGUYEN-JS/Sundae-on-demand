@@ -5,10 +5,11 @@
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.1",
     "bootstrap": "^5.0.1",
     "eslint-plugin-jest-dom": "^3.9.0",
     "eslint-plugin-testing-library": "^4.6.0",
+    "msw": "^0.29.0",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.0",
     "react-dom": "^17.0.2",
@@ -32,5 +33,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^7.31.0",
+    "@testing-library/user-event": "^12.8.3"
   }
 }
