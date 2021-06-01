@@ -13,7 +13,7 @@ test("update scoop subtotal when scoops change", async () => {
 
   expect(scoopsSubtotal).toHaveTextContent("0.00");
 
-  //update vanilla scoops to 1 and check the subtotal changes
+  //update vanilla scoops to 1 and check the SUBTOTAL changes
 
   const vanillaInput = await screen.findByRole("spinbutton", {
     name: "Vanilla",
@@ -24,7 +24,7 @@ test("update scoop subtotal when scoops change", async () => {
 
   expect(scoopsSubtotal).toHaveTextContent("2.00");
 
-  //update chocolate scoops to 2 and check subtotal
+  //update chocolate scoops to 2 and check SUBTOTAL
   const chocolateInput = await screen.findByRole("spinbutton", {
     name: "Chocolate",
   });
@@ -33,4 +33,40 @@ test("update scoop subtotal when scoops change", async () => {
   userEvent.type(chocolateInput, "2");
 
   expect(scoopsSubtotal).toHaveTextContent("6.00");
+});
+
+test("update topping subtotal when toppings change", async () => {
+  render(<Options optionType="toppings" />, { wrapper: OrderDetailsProvider });
+
+  //make sure total starts out at 0.00
+  const toppingSubtotal = screen.getByText("toppings total: $", {
+    exact: false,
+  });
+
+  expect(toppingSubtotal).toHaveTextContent("0.00");
+
+  //click cherriesCheckbox
+  const cherriesCheckbox = await screen.findByRole("checkbox", {
+    name: "Cherries",
+  });
+
+  userEvent.click(cherriesCheckbox);
+
+  //test subTotal
+  expect(toppingSubtotal).toHaveTextContent("1.50");
+
+  //click hotFudge checkbox (no need to await)
+  const hotFudgeCheckBox = screen.getByRole("checkbox", {
+    name: "Hot fudge",
+  });
+
+  userEvent.click(hotFudgeCheckBox);
+
+  //test subTotal
+  expect(toppingSubtotal).toHaveTextContent("3.00");
+
+  //unclick hotFudge checkboxLabel
+  userEvent.click(hotFudgeCheckBox);
+
+  expect(toppingSubtotal).toHaveTextContent("1.50");
 });
